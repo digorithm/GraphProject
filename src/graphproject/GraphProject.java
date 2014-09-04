@@ -20,35 +20,48 @@ public class GraphProject {
     public Vertex node;
     public Edge edge;
     
-   public void test(){
-       nodes = new ArrayList<Vertex>();
-       edges = new ArrayList<Edge>();
-       
-       for (Integer n = 0; n<3; n++){
-           node = new Vertex(n.toString(), "node " + n.toString());
-           nodes.add(node);
-       }
-       
-       edge = new Edge("1", nodes.get(0), nodes.get(1), 0);
-       edges.add(edge);
-       edge = new Edge("1", nodes.get(1), nodes.get(2), 0);
-       edges.add(edge);
-       edge = new Edge("1", nodes.get(2), nodes.get(0), 0);
-       edges.add(edge);
-       
-       graph = new Graph(nodes, edges);
-       
-       for (Edge edge : graph.getEdges() ){
-           System.out.println(edge.toString());
-           System.out.println(" ");
-       }
-       
-       for (Vertex node: graph.getNodes()){
-           System.out.println(node.toString());
-       }
-       
-       
-   }
+    public void printGraph(Graph graph) {
+      for (Vertex node: graph.getNodes()){
+             System.out.println(node.toString());
+      }
+      
+      for (Edge edge : graph.getEdges() ){
+             System.out.println(edge.toString());
+             System.out.println(" ");
+      }
+      
+    }
+    
+    public void test(){
+        nodes = new ArrayList<Vertex>();
+        edges = new ArrayList<Edge>();
+
+        for (Integer n = 0; n<11; n++){
+            node = new Vertex(n.toString(), "node " + n.toString());
+            nodes.add(node);
+        }
+
+        edge = new Edge("id", nodes.get(0), nodes.get(1), 0);
+        edges.add(edge);
+        edge = new Edge("id", nodes.get(1), nodes.get(2), 0);
+        edges.add(edge);
+        edge = new Edge("id", nodes.get(2), nodes.get(0), 0);
+        edges.add(edge);
+
+        System.out.println("Graph - Initial state");
+        graph = new Graph(nodes, edges); 
+        printGraph(graph);
+        graph.addEdge(nodes.get(3), nodes.get(4));
+        graph.addEdge(nodes.get(3), nodes.get(5));
+        graph.addEdge(nodes.get(3), nodes.get(6));
+        graph.addEdge(nodes.get(5), nodes.get(6));
+        System.out.println("Graph - Second state: new edges");
+        printGraph(graph);
+        graph.removeEdge(nodes.get(3), nodes.get(5));
+        graph.removeEdge(nodes.get(3), nodes.get(6));
+        System.out.println("Graph - Third state: removing 3-5 and 3-6");
+        printGraph(graph);
+    }
  
     public static void main(String[] args) {
        GraphProject gp = new GraphProject();

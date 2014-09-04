@@ -33,4 +33,43 @@ public class Graph {
   public List<Edge> getEdges() {
     return edges;
   }
+  
+  // Find an edge
+  // TO-DO: Change == to equals
+  public Edge getEdge(Vertex source, Vertex destination) {
+      for (Edge edge : this.getEdges()) {
+          if ((edge.getSource().getId() == source.getId() && edge.getDestination().getId() == destination.getId()) || (edge.getSource().getId() == destination.getId() && edge.getDestination().getId() == source.getId())) {
+              return edge;
+          }
+      }
+      return null;
+  }
+ 
+  // Check if there is an edge for two given vertices
+  public boolean hasEdge(Vertex source, Vertex destination) {
+      Edge result = this.getEdge(source, destination);
+      if (result != null) {
+        return true;
+      } else {
+        return false;
+      }
+  }
+  
+  // Add a new edge
+  public boolean addEdge(Vertex source, Vertex destination) {
+    Edge newEdge = new Edge("id", source, destination, 0);
+    return this.edges.add(newEdge);
+  }
+  
+  // Remove an edge
+  public boolean removeEdge(Vertex source, Vertex destination) {
+    Edge result = this.getEdge(source, destination);
+    if (result != null) {
+      return this.edges.remove(result);
+    } else {
+        System.out.println("Couldn't find edge");
+      return false;
+    }
+  }
+  
 }
