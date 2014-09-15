@@ -6,6 +6,7 @@
 
 package graphproject;
 import GraphModels.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
  * @author rodrigo
  */
 public class GraphProject {
+    
+    //graph creation procedure
     private List<Vertex> nodes;
     private List<Edge> edges;
     private Graph graph;
@@ -32,7 +35,9 @@ public class GraphProject {
       
     }
     
-    public void test(){
+    public void test() throws IOException{
+        
+        /*
         nodes = new ArrayList<Vertex>();
         edges = new ArrayList<Edge>();
 
@@ -61,12 +66,25 @@ public class GraphProject {
         graph.removeEdge(nodes.get(3), nodes.get(6));
         System.out.println("Graph - Third state: removing 3-5 and 3-6");
         printGraph(graph);
+        */
+        //new way to build graph
+        
+        Graph graph = new Graph();
+        graph.createGraph("/home/rodrigo/NetBeansProjects/livraria2/GraphProject/src/graphproject/graph.txt");
+        
+        graph.printGraph();
+        
+        
+        
     }
+    //end of graph creation procedure
  
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
        GraphProject gp = new GraphProject();
        
        gp.test();
+       
+     
     }
     
 }

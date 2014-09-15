@@ -6,6 +6,11 @@
 
 package GraphModels;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,13 +23,17 @@ public class Graph {
     *   where G = (V, E)
     */
     
-   private final List<Vertex> nodes;
-   private final List<Edge> edges;
+   private  List<Vertex> nodes;
+   private  List<Edge> edges;
+   public Vertex node;
+   public Edge edge;
+   private String path;
    
-   public Graph(List<Vertex> nodes, List<Edge> edges) {
-    this.nodes = nodes;
-    this.edges = edges;
+
+   public Graph() {
+    
   }
+
 
   public List<Vertex> getNodes() {
     return nodes;
@@ -32,6 +41,14 @@ public class Graph {
 
   public List<Edge> getEdges() {
     return edges;
+  }
+  
+  public void setNodes(List<Vertex> vertex){
+      this.nodes = vertex;
+  }
+  
+  public void setEdges(List<Edge> edges){
+      this.edges = edges;
   }
   
   // Find an edge
@@ -55,6 +72,66 @@ public class Graph {
       }
   }
   
+  public void createGraph(String path) throws FileNotFoundException, IOException{
+      this.path = path;
+      
+      nodes = new ArrayList<Vertex>();
+      edges = new ArrayList<Edge>();
+      
+      FileReader fr = new FileReader(path);
+      BufferedReader textReader = new BufferedReader(fr);
+     
+      //gets the first line, which are the nodes that must be created
+      String TextData = textReader.readLine();
+      
+      //separate the string with numbers
+      String[] nodesInString = TextData.split("\\s*,\\s*");
+      
+      //create the list of nodes
+      for (String nodeInString : nodesInString){
+
+          node = new Vertex(nodeInString, "node " + nodeInString);
+          nodes.add(node);
+      }
+      
+      //create the list of edges
+      String edgeIntoString;
+      Vertex vertex_aux1 = new Vertex("-1","-1");
+      Vertex vertex_aux2 = new Vertex("-1","-1");;
+      int n = 0;
+      //varre a linha que tem x-y
+      while (!(edgeIntoString = textReader.readLine()).equals("-1")){
+          
+          String[] nodesConnected = edgeIntoString.split("\\s*-\\s*");
+          //varre os dois nodes
+         
+              
+              //verifica se x e y passados no txt estão instanciados em nodes 
+              for (Vertex node : nodes){
+         
+                  if (nodesConnected[0].equals(node.getId())){
+                      //se o node do txt foi achado em nodes
+                      
+                      vertex_aux1 = new Vertex(node.getId(), node.getName());
+                  }
+              }
+              for (Vertex node : nodes){
+         
+                  if (nodesConnected[1].equals(node.getId())){
+                     
+                      
+                      vertex_aux2 = new Vertex(node.getId(), node.getName());
+                  }
+              }
+              
+              
+          edge = new Edge(Integer.toString(n),vertex_aux1, vertex_aux2, 0);
+          edges.add(edge);
+      }
+      
+      
+      
+  }
   // Add a new edge
   public boolean addEdge(Vertex source, Vertex destination) {
     Edge newEdge = new Edge("id", source, destination, 0);
@@ -71,5 +148,19 @@ public class Graph {
       return false;
     }
   }
+  
+  public void printGraph() {
+      for (Vertex node: this.getNodes()){
+             System.out.println(node.getName());
+      }
+      
+      for (Edge edge : this.getEdges() ){
+             System.out.println(edge.getSource().getId() +"->"+edge.getDestination().getId());
+      }
+      
+    }
+  
+  
+  
   
 }
