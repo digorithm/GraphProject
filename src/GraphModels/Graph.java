@@ -72,6 +72,23 @@ public class Graph {
       }
   }
   
+  
+  //TO-DO: error treatment. 
+  // while this treatment doesn't exist: BE EXTREMELY CAREFUL WITH GRAPH.TXT
+  // the right syntax is:
+  //line (1) :1,2,...,n 
+  //line (2) :1-2
+  //line (n) :2-n
+  //line (n+1) :-1
+  //where the first line you must declare the nodes, each one separated by comma
+  //the second til the n-th line you must declare the connections between the nodes declared 
+  //in the first line
+  //after the last connection, you must end with a -1
+  // if you don't do this you computer may explode
+  //...
+  //...
+  //...
+  // i don't know, i did never try that.
   public void createGraph(String path) throws FileNotFoundException, IOException{
       this.path = path;
       
@@ -92,6 +109,7 @@ public class Graph {
 
           node = new Vertex(nodeInString, "node " + nodeInString);
           nodes.add(node);
+          
       }
       
       //create the list of edges
