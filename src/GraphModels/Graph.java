@@ -78,11 +78,15 @@ public class Graph {
   // the right syntax is:
   //line (1) :1,2,...,n 
   //line (2) :1-2
+  //line (3) : weight of the previous connection
   //line (n) :2-n
-  //line (n+1) :-1
+  //line (n+1) : weight of the previous connection
+  //line (n+2) :-1
   //where the first line you must declare the nodes, each one separated by comma
   //the second til the n-th line you must declare the connections between the nodes declared 
   //in the first line
+  //after every connection, in the next line, you must declare the weight of the connection
+  // leave everything zero to create a unweighted graph
   //after the last connection, you must end with a -1
   // if you don't do this you computer may explode
   //...
@@ -123,6 +127,7 @@ public class Graph {
           String[] nodesConnected = edgeIntoString.split("\\s*-\\s*");
           //varre os dois nodes
          
+          int peso = Integer.parseInt(textReader.readLine());
               
               //verifica se x e y passados no txt estão instanciados em nodes 
               for (Vertex node : nodes){
@@ -143,7 +148,7 @@ public class Graph {
               }
               
               
-          edge = new Edge(Integer.toString(n),vertex_aux1, vertex_aux2, 0);
+          edge = new Edge(Integer.toString(n),vertex_aux1, vertex_aux2, peso);
           edges.add(edge);
       }
       
@@ -174,6 +179,7 @@ public class Graph {
       
       for (Edge edge : this.getEdges() ){
              System.out.println(edge.getSource().getId() +"->"+edge.getDestination().getId());
+             System.out.println("weight: " + edge.getWeight());
       }
       
     }
