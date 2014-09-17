@@ -11,7 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -28,6 +30,8 @@ public class Graph {
    public Vertex node;
    public Edge edge;
    private String path;
+   private int [][] adjacencyMatrix;
+   private Map nodesMatrixMap;
    
 
    public Graph() {
@@ -88,7 +92,7 @@ public class Graph {
   //after every connection, in the next line, you must declare the weight of the connection
   // leave everything zero to create a unweighted graph
   //after the last connection, you must end with a -1
-  // if you don't do this your computer may explode
+  // if you don't do this your computer may explode lol
   //...
   //...
   //...
@@ -98,7 +102,7 @@ public class Graph {
       
       nodes = new ArrayList<Vertex>();
       edges = new ArrayList<Edge>();
-      
+            
       FileReader fr = new FileReader(path);
       BufferedReader textReader = new BufferedReader(fr);
      
@@ -184,7 +188,53 @@ public class Graph {
       
     }
   
+  public void setAdjacencyMatrix() {
+    
+    initializeAdjacencyMatrix();
+    int weigth;
+    int source;
+    int destination;
+    for (Edge currentEdge : this.getEdges() ){
+      weigth = currentEdge.getWeight();
+      source = (int) nodesMatrixMap.get(currentEdge.getSource().getName());
+      destination = (int) nodesMatrixMap.get(currentEdge.getDestination().getName());
+      
+      adjacencyMatrix[source][destination] = weigth; 
+    }
+  }
   
+  public void initializeAdjacencyMatrix(){
+    int numNodes = this.nodes.size();
+    adjacencyMatrix = new int[numNodes][numNodes];
+    nodesMatrixMap = new HashMap();
+    for (int i = 0; i < numNodes; i++) {
+      nodesMatrixMap.put(this.nodes.get(i).getName(), i);
+      for (int j = 0; j < numNodes; j++) {
+        adjacencyMatrix[i][j] = -1;
+      }
+    }
+  }
   
+  public void printAdjacencyMatrix() {
+    String sourceName;
+    String destName;
+    int source;
+    int dest;
+    for (int i = 0; i < this.nodes.size(); i++) {
+      sourceName = this.nodes.get(i).getName();
+      source = (int) nodesMatrixMap.get(sourceName);
+      for (int j = 0; j < this.nodes.size(); j++) {
+        destName = this.nodes.get(j).getName();
+        dest = (int) nodesMatrixMap.get(destName);
+        if (adjacencyMatrix[source][dest] == -1) {
+          System.out.print("- ");
+        } else {
+          System.out.print(adjacencyMatrix[source][dest] + " ");
+        }
+        
+      }
+      System.out.print("\n");
+    }
+  }
   
 }
