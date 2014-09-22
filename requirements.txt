@@ -3,8 +3,8 @@ Atividade 1
 – Inclusão de um grafo com seus vértices e arestas OK
 – Teste a existência de uma aresta entre 2 vértices OK
 – Permita a inserção e a remoção de uma aresta entre 2 vértices OK
-– Obtenha os vértices adjacentes a um determinado vértice
-– Obtenha o grau de um determinado vértice
+– Obtenha os vértices adjacentes a um determinado vértice OK
+– Obtenha o grau de um determinado vértice OK 
 – Obtenha o grau médio, o grau mínimo e o grau máximo
 – Identifique se o grafo é conexo
 – Obs.: A solução adotada deve contemplar a parametrização para grafos simples e grafos ponderados. (Não é necessário tratar grafos dirigidos).

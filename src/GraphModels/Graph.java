@@ -32,6 +32,8 @@ public class Graph {
    private String path;
    private int [][] adjacencyMatrix;
    private Map nodesMatrixMap;
+   private List<Vertex> AdjacentNodes;
+   public int degree;
    
 
    public Graph() {
@@ -74,6 +76,18 @@ public class Graph {
       } else {
         return false;
       }
+  }
+  
+  public List<Vertex> getAdjacentNodes(Vertex node){
+      AdjacentNodes = new ArrayList<Vertex>();
+      
+      for (Vertex CurrentNode : nodes){
+          if (hasEdge(node, CurrentNode)){
+              AdjacentNodes.add(CurrentNode);
+          }
+      }
+       
+      return AdjacentNodes;
   }
   
   
@@ -176,13 +190,38 @@ public class Graph {
     }
   }
   
+  public int getDegree(Vertex node){
+      
+      degree = 0;
+      
+      for (Vertex CurrentNode : nodes){
+          if (hasEdge(node, CurrentNode)){
+              degree++;
+          }
+      }
+      
+      
+      
+      return degree;
+  }
+  
   public void printGraph() {
       for (Vertex node: this.getNodes()){
              System.out.println(node.getName());
+             System.out.print("Adjacent nodes: ");
+             AdjacentNodes = getAdjacentNodes(node);
+             for (Vertex AdjacentNode : AdjacentNodes){
+                System.out.print(AdjacentNode.getName() + " ");
+             }
+             
+             System.out.println(" ");
+             System.out.println("Degree of this node: " + getDegree(node));
+             System.out.println(" ");
       }
-      
+      System.out.println(" ");
+      System.out.println("Connections: ");
       for (Edge edge : this.getEdges() ){
-             System.out.println(edge.getSource().getId() +"->"+edge.getDestination().getId());
+             System.out.print(edge.getSource().getId() +"<->"+edge.getDestination().getId()+" ");
              System.out.println("weight: " + edge.getWeight());
       }
       
@@ -200,6 +239,8 @@ public class Graph {
       destination = (int) nodesMatrixMap.get(currentEdge.getDestination().getName());
       
       adjacencyMatrix[source][destination] = weigth; 
+      //must be symmetric
+      adjacencyMatrix[destination][source] = weigth; 
     }
   }
   
@@ -220,6 +261,9 @@ public class Graph {
     String destName;
     int source;
     int dest;
+    System.out.println(" ");
+    System.out.println("Adjacency Matrix: ");
+    System.out.println(" ");
     for (int i = 0; i < this.nodes.size(); i++) {
       sourceName = this.nodes.get(i).getName();
       source = (int) nodesMatrixMap.get(sourceName);
