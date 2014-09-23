@@ -34,6 +34,9 @@ public class Graph {
    private Map nodesMatrixMap;
    private List<Vertex> AdjacentNodes;
    public int degree;
+   public int MinDegree;
+   public int MaxDegree;
+   public int AvgDegree;
    
 
    public Graph() {
@@ -89,6 +92,43 @@ public class Graph {
        
       return AdjacentNodes;
   }
+  
+  public int getMinDegree(){
+      MinDegree = 99999999;
+      
+      for (Vertex node : nodes){
+          if (this.getDegree(node)<MinDegree){
+                MinDegree = this.getDegree(node);
+          }
+      }
+      
+      
+      return MinDegree;
+  }
+    public int getMaxDegree(){
+      MaxDegree = 0;
+      
+      for (Vertex node : nodes){
+          if (this.getDegree(node)>MaxDegree){
+                MaxDegree = this.getDegree(node);
+          }
+      }
+      
+      
+      return MaxDegree;
+  }
+    public int getAvgDegree(){
+      AvgDegree = 0;
+      
+      for (Vertex node : nodes){
+          AvgDegree += this.getDegree(node);
+      }
+      AvgDegree = AvgDegree/nodes.size();
+      
+      
+      return AvgDegree;
+  }
+  
   
   
   //TO-DO: error treatment. 
@@ -217,14 +257,25 @@ public class Graph {
              System.out.println(" ");
              System.out.println("Degree of this node: " + getDegree(node));
              System.out.println(" ");
+             
       }
+      System.out.println("- - - - - - - - - - - - - - - - ");
       System.out.println(" ");
+      System.out.println("Min Degree of this Graph: " + getMinDegree());
+      System.out.println(" ");
+      System.out.println("Max Degree of this Graph: " + getMaxDegree());
+      System.out.println(" ");
+      System.out.println("Average Degree of this Graph: " + getAvgDegree());
+      System.out.println(" ");
+      System.out.println("- - - - - - - - - - - - - - - - ");
       System.out.println("Connections: ");
+      System.out.println(" ");
       for (Edge edge : this.getEdges() ){
              System.out.print(edge.getSource().getId() +"<->"+edge.getDestination().getId()+" ");
              System.out.println("weight: " + edge.getWeight());
       }
-      
+      System.out.println(" ");
+      System.out.println("- - - - - - - - - - - - - - - - ");
     }
   
   public void setAdjacencyMatrix() {
