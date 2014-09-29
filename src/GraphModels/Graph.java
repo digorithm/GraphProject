@@ -138,8 +138,8 @@ public class Graph {
     int VisitedNodes = 0;
     Queue q = new LinkedList();
     q.add(rootnode);
-    rootnode.visited=false;
-    VisitedNodes = 0;
+    
+    
     
     while (!q.isEmpty()){
       
@@ -166,8 +166,6 @@ public class Graph {
       int NumberOfNodes = nodes.size();
       
       for (Vertex node : nodes){
-          System.out.println(this.breadthFirstSearch(node));
-          System.out.println(NumberOfNodes);
           if (!(this.breadthFirstSearch(node) == NumberOfNodes)){
               
               return false;
