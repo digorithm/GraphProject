@@ -13,6 +13,7 @@ public class Vertex {
     
     public String id;
     public String name;
+    public boolean visited = false;
     
     public Vertex(String id, String name) {
         this.id = id;

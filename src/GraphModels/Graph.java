@@ -12,8 +12,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 /**
  *
@@ -105,7 +107,7 @@ public class Graph {
       
       return MinDegree;
   }
-    public int getMaxDegree(){
+  public int getMaxDegree(){
       MaxDegree = 0;
       
       for (Vertex node : nodes){
@@ -117,7 +119,7 @@ public class Graph {
       
       return MaxDegree;
   }
-    public int getAvgDegree(){
+  public int getAvgDegree(){
       AvgDegree = 0;
       
       for (Vertex node : nodes){
@@ -129,7 +131,50 @@ public class Graph {
       return AvgDegree;
   }
   
+ 
+  //modified for our needs   
+  public int breadthFirstSearch(Vertex rootnode){
+      
+    int VisitedNodes = 0;
+    Queue q = new LinkedList();
+    q.add(rootnode);
+    rootnode.visited=false;
+    VisitedNodes = 0;
+    
+    while (!q.isEmpty()){
+      
+      Vertex currentnode = (Vertex) q.peek();
+      for (Vertex node : this.getAdjacentNodes(currentnode)){
+          if (!node.visited){   
+              node.visited = true;
+              q.add(node);
+              VisitedNodes++;
+          }
+      }
+      q.remove();
+      
+      
+  }
+        //reseting all flags
+       for (Vertex node : nodes){
+           node.visited = false;
+       }
+      return VisitedNodes;
+  }
   
+  public boolean isConnected(){
+      int NumberOfNodes = nodes.size();
+      
+      for (Vertex node : nodes){
+          System.out.println(this.breadthFirstSearch(node));
+          System.out.println(NumberOfNodes);
+          if (!(this.breadthFirstSearch(node) == NumberOfNodes)){
+              
+              return false;
+          }
+      }
+      return true;
+  }
   
   //TO-DO: error treatment. 
   // while this treatment doesn't exist: BE EXTREMELY CAREFUL WITH GRAPH.TXT
@@ -246,6 +291,9 @@ public class Graph {
   }
   
   public void printGraph() {
+      
+       
+      
       for (Vertex node: this.getNodes()){
              System.out.println(node.getName());
              System.out.print("Adjacent nodes: ");
@@ -266,6 +314,8 @@ public class Graph {
       System.out.println("Max Degree of this Graph: " + getMaxDegree());
       System.out.println(" ");
       System.out.println("Average Degree of this Graph: " + getAvgDegree());
+      System.out.println(" ");
+      System.out.println("Graph is connected: " + this.isConnected());
       System.out.println(" ");
       System.out.println("- - - - - - - - - - - - - - - - ");
       System.out.println("Connections: ");
