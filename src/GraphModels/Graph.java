@@ -36,7 +36,7 @@ public class Graph {
    private String path;
    private int [][] adjacencyMatrix;
    private Map nodesMatrixMap;
-   private List<Vertex> AdjacentNodes;
+   private List<Vertex> adjacentNodes;
    public int degree;
    public int MinDegree;
    public int MaxDegree;
@@ -87,82 +87,77 @@ public class Graph {
   }
   
   public List<Vertex> getAdjacentNodes(Vertex node){
-      AdjacentNodes = new ArrayList<Vertex>();
+      adjacentNodes = new ArrayList<Vertex>();
       
-      for (Vertex CurrentNode : nodes){
-          if (hasEdge(node, CurrentNode)){
-              AdjacentNodes.add(CurrentNode);
+      for (Vertex currentNode : nodes){
+          if (hasEdge(node, currentNode)){
+              adjacentNodes.add(currentNode);
           }
       }
        
-      return AdjacentNodes;
+      return adjacentNodes;
   }
   
   public int getMinDegree(){
-      MinDegree = 99999999;
+      minDegree = 99999999;
       
       for (Vertex node : nodes){
-          if (this.getDegree(node)<MinDegree){
-                MinDegree = this.getDegree(node);
+          if (this.getDegree(node)<minDegree){
+              minDegree = this.getDegree(node);
           }
       }
       
       
-      return MinDegree;
+      return minDegree;
   }
   public int getMaxDegree(){
-      MaxDegree = 0;
+      maxDegree = 0;
       
       for (Vertex node : nodes){
-          if (this.getDegree(node)>MaxDegree){
-                MaxDegree = this.getDegree(node);
+          if (this.getDegree(node)>maxDegree){
+              maxDegree = this.getDegree(node);
           }
       }
-      
-      
-      return MaxDegree;
+
+      return maxDegree;
   }
   public int getAvgDegree(){
-      AvgDegree = 0;
+      avgDegree = 0;
       
       for (Vertex node : nodes){
-          AvgDegree += this.getDegree(node);
+          avgDegree += this.getDegree(node);
       }
-      AvgDegree = AvgDegree/nodes.size();
+      avgDegree = avgDegree/nodes.size();
       
-      
-      return AvgDegree;
+      return avgDegree;
   }
   
  
   //modified for our needs   
-  public int breadthFirstSearch(Vertex rootnode){
+  public int breadthFirstSearch(Vertex rootNode){
       
-    int VisitedNodes = 0;
-    Queue q = new LinkedList();
-    q.add(rootnode);
-    
-    
-    
-    while (!q.isEmpty()){
-      
-      Vertex currentnode = (Vertex) q.peek();
-      for (Vertex node : this.getAdjacentNodes(currentnode)){
-          if (!node.visited){   
-              node.visited = true;
-              q.add(node);
-              VisitedNodes++;
+      int visitedNodes = 0;
+      Queue q = new LinkedList();
+      q.add(rootNode);
+
+      while (!q.isEmpty()){
+          Vertex currentNode = (Vertex) q.peek();
+          for (Vertex node : this.getAdjacentNodes(currentNode)){
+              if (!node.visited){   
+                  node.visited = true;
+                  q.add(node);
+                  visitedNodes++;
+              }
           }
+          q.remove();   
       }
-      q.remove();
-      
-      
-  }
-        //reseting all flags
-       for (Vertex node : nodes){
-           node.visited = false;
-       }
-      return VisitedNodes;
+      //reseting all flags
+      for (Vertex node : nodes){
+          node.visited = false;
+      }
+
+      return visitedNodes;
+    
   }
   
   
@@ -186,11 +181,10 @@ public class Graph {
   }
   
   public boolean isConnected(){
-      int NumberOfNodes = nodes.size();
+      int numberOfNodes = nodes.size();
       
       for (Vertex node : nodes){
-          if (!(this.breadthFirstSearch(node) == NumberOfNodes)){
-              
+          if (!(this.breadthFirstSearch(node) == numberOfNodes)){
               return false;
           }
       }
@@ -281,19 +275,21 @@ public class Graph {
   }
   // Add a new edge
   public boolean addEdge(Vertex source, Vertex destination) {
-    Edge newEdge = new Edge("id", source, destination, 0);
-    return this.edges.add(newEdge);
+      Edge newEdge = new Edge("id", source, destination, 0);
+      return this.edges.add(newEdge);
   }
   
   // Remove an edge
   public boolean removeEdge(Vertex source, Vertex destination) {
-    Edge result = this.getEdge(source, destination);
-    if (result != null) {
-      return this.edges.remove(result);
-    } else {
-        System.out.println("Couldn't find edge");
-      return false;
-    }
+    
+      Edge result = this.getEdge(source, destination);
+      
+      if (result != null) {
+          return this.edges.remove(result);
+      } else {
+          System.out.println("Couldn't find edge");
+          return false;
+      }
   }
   
   public int getDegree(Vertex node){
@@ -305,28 +301,23 @@ public class Graph {
               degree++;
           }
       }
-      
-      
-      
+  
       return degree;
   }
   
   public void printGraph() {
-      
-       
-      
+   
       for (Vertex node: this.getNodes()){
-             System.out.println(node.getName());
-             System.out.print("Adjacent nodes: ");
-             AdjacentNodes = getAdjacentNodes(node);
-             for (Vertex AdjacentNode : AdjacentNodes){
-                System.out.print(AdjacentNode.getName() + " ");
-             }
-             
-             System.out.println(" ");
-             System.out.println("Degree of this node: " + getDegree(node));
-             System.out.println(" ");
-             
+          System.out.println(node.getName());
+          System.out.print("Adjacent nodes: ");
+          adjacentNodes = getAdjacentNodes(node);
+          for (Vertex adjacentNode : adjacentNodes){
+              System.out.print(adjacentNode.getName() + " ");
+          }
+
+          System.out.println(" ");
+          System.out.println("Degree of this node: " + getDegree(node));
+          System.out.println(" "); 
       }
       System.out.println("- - - - - - - - - - - - - - - - ");
       System.out.println(" ");
@@ -342,8 +333,8 @@ public class Graph {
       System.out.println("Connections: ");
       System.out.println(" ");
       for (Edge edge : this.getEdges() ){
-             System.out.print(edge.getSource().getId() +"<->"+edge.getDestination().getId()+" ");
-             System.out.println("weight: " + edge.getWeight());
+          System.out.print(edge.getSource().getId() +"<->"+edge.getDestination().getId()+" ");
+          System.out.println("weight: " + edge.getWeight());
       }
       System.out.println(" ");
       System.out.println("- - - - - - - - - - - - - - - - ");
@@ -359,51 +350,53 @@ public class Graph {
     int source;
     int destination;
     for (Edge currentEdge : this.getEdges() ){
-      weigth = currentEdge.getWeight();
-      source = (int) nodesMatrixMap.get(currentEdge.getSource().getName());
-      destination = (int) nodesMatrixMap.get(currentEdge.getDestination().getName());
-      
-      adjacencyMatrix[source][destination] = weigth; 
-      //must be symmetric
-      adjacencyMatrix[destination][source] = weigth; 
+        weigth = currentEdge.getWeight();
+        source = (int) nodesMatrixMap.get(currentEdge.getSource().getName());
+        destination = (int) nodesMatrixMap.get(currentEdge.getDestination().getName());
+
+        adjacencyMatrix[source][destination] = weigth; 
+        //must be symmetric
+        adjacencyMatrix[destination][source] = weigth; 
     }
   }
   
   public void initializeAdjacencyMatrix(){
-    int numNodes = this.nodes.size();
-    adjacencyMatrix = new int[numNodes][numNodes];
-    nodesMatrixMap = new HashMap();
-    for (int i = 0; i < numNodes; i++) {
-      nodesMatrixMap.put(this.nodes.get(i).getName(), i);
-      for (int j = 0; j < numNodes; j++) {
-        adjacencyMatrix[i][j] = -1;
+      int numNodes = this.nodes.size();
+      adjacencyMatrix = new int[numNodes][numNodes];
+      nodesMatrixMap = new HashMap();
+      for (int i = 0; i < numNodes; i++) {
+          nodesMatrixMap.put(this.nodes.get(i).getName(), i);
+          for (int j = 0; j < numNodes; j++) {
+              adjacencyMatrix[i][j] = -1;
+          }
       }
-    }
   }
   
   public void printAdjacencyMatrix() {
-    String sourceName;
-    String destName;
-    int source;
-    int dest;
-    System.out.println(" ");
-    System.out.println("Adjacency Matrix: ");
-    System.out.println(" ");
-    for (int i = 0; i < this.nodes.size(); i++) {
-      sourceName = this.nodes.get(i).getName();
-      source = (int) nodesMatrixMap.get(sourceName);
-      for (int j = 0; j < this.nodes.size(); j++) {
-        destName = this.nodes.get(j).getName();
-        dest = (int) nodesMatrixMap.get(destName);
-        if (adjacencyMatrix[source][dest] == -1) {
-          System.out.print("- ");
-        } else {
-          System.out.print(adjacencyMatrix[source][dest] + " ");
-        }
-        
+    
+      String sourceName;
+      String destName;
+      int source;
+      int dest;
+      
+      System.out.println(" ");
+      System.out.println("Adjacency Matrix: ");
+      System.out.println(" ");
+      
+      for (int i = 0; i < this.nodes.size(); i++) {
+          sourceName = this.nodes.get(i).getName();
+          source = (int) nodesMatrixMap.get(sourceName);
+          for (int j = 0; j < this.nodes.size(); j++) {
+              destName = this.nodes.get(j).getName();
+              dest = (int) nodesMatrixMap.get(destName);
+              if (adjacencyMatrix[source][dest] == -1) {
+                  System.out.print("- ");
+              } else {
+                  System.out.print(adjacencyMatrix[source][dest] + " ");
+              }
+          }
+          System.out.print("\n");
       }
-      System.out.print("\n");
-    }
   }
   
 }
