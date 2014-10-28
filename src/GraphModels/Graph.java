@@ -11,10 +11,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 /**
@@ -39,6 +41,7 @@ public class Graph {
    public int MinDegree;
    public int MaxDegree;
    public int AvgDegree;
+   public DijkstraShortestPath dijkstra;
    
 
    public Graph() {
@@ -160,6 +163,26 @@ public class Graph {
            node.visited = false;
        }
       return VisitedNodes;
+  }
+  
+  
+  public void shortestPath(Vertex source, Vertex destination ){
+      
+      dijkstra = new DijkstraShortestPath(this);
+      dijkstra.execute(source);
+      LinkedList<Vertex> path = dijkstra.getPath(destination);
+      System.out.println(path);
+  }
+  
+  
+  public int getMinValue(int [] list){
+      Arrays.sort(list);
+      for (int i : list){
+          
+              return i;
+          
+      }
+      return -1;
   }
   
   public boolean isConnected(){
@@ -324,6 +347,9 @@ public class Graph {
       }
       System.out.println(" ");
       System.out.println("- - - - - - - - - - - - - - - - ");
+      this.setAdjacencyMatrix();
+      this.shortestPath(this.nodes.get(0), this.nodes.get(4));
+     
     }
   
   public void setAdjacencyMatrix() {
