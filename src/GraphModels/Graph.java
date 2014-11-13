@@ -38,10 +38,11 @@ public class Graph {
    private Map nodesMatrixMap;
    private List<Vertex> adjacentNodes;
    public int degree;
-   public int MinDegree;
-   public int MaxDegree;
-   public int AvgDegree;
+   public int minDegree;
+   public int maxDegree;
+   public int avgDegree;
    public DijkstraShortestPath dijkstra;
+   public BellmanFordShortestPath bellmanFord;
    
 
    public Graph() {
@@ -161,11 +162,19 @@ public class Graph {
   }
   
   
-  public void shortestPath(Vertex source, Vertex destination ){
+  public void shortestPathDijkstra(Vertex source, Vertex destination ){
       
       dijkstra = new DijkstraShortestPath(this);
       dijkstra.execute(source);
       LinkedList<Vertex> path = dijkstra.getPath(destination);
+      System.out.println(path);
+  }
+  
+  public void shortestPathBellmanFord(Vertex source, Vertex destination ){
+      
+      bellmanFord = new BellmanFordShortestPath(this);
+      bellmanFord.execute(source);
+      LinkedList<Vertex> path = bellmanFord.getPath(destination);
       System.out.println(path);
   }
   
@@ -339,7 +348,10 @@ public class Graph {
       System.out.println(" ");
       System.out.println("- - - - - - - - - - - - - - - - ");
       this.setAdjacencyMatrix();
-      this.shortestPath(this.nodes.get(0), this.nodes.get(4));
+      System.out.println("Dijkstra Shortest Path ");
+      this.shortestPathDijkstra(this.nodes.get(5), this.nodes.get(0));
+      System.out.println("Bellman-Ford Shortest Path ");
+      this.shortestPathBellmanFord(this.nodes.get(5), this.nodes.get(0));
      
     }
   
