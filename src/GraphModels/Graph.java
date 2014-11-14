@@ -99,37 +99,37 @@ public class Graph {
   }
   
   public int getMinDegree(){
-      minDegree = 99999999;
+      MinDegree = 99999999;
       
       for (Vertex node : nodes){
-          if (this.getDegree(node)<minDegree){
-              minDegree = this.getDegree(node);
+          if (this.getDegree(node)<MinDegree){
+              MinDegree = this.getDegree(node);
           }
       }
       
       
-      return minDegree;
+      return MinDegree;
   }
   public int getMaxDegree(){
-      maxDegree = 0;
+      MaxDegree = 0;
       
       for (Vertex node : nodes){
-          if (this.getDegree(node)>maxDegree){
-              maxDegree = this.getDegree(node);
+          if (this.getDegree(node)>MaxDegree){
+              MaxDegree = this.getDegree(node);
           }
       }
 
-      return maxDegree;
+      return MaxDegree;
   }
   public int getAvgDegree(){
-      avgDegree = 0;
+      AvgDegree = 0;
       
       for (Vertex node : nodes){
-          avgDegree += this.getDegree(node);
+          AvgDegree += this.getDegree(node);
       }
-      avgDegree = avgDegree/nodes.size();
+      AvgDegree = AvgDegree/nodes.size();
       
-      return avgDegree;
+      return AvgDegree;
   }
   
  
@@ -339,6 +339,7 @@ public class Graph {
       System.out.println(" ");
       System.out.println("- - - - - - - - - - - - - - - - ");
       this.setAdjacencyMatrix();
+      System.out.println("Shortest Path between the node 1 and the node 5: ");
       this.shortestPath(this.nodes.get(0), this.nodes.get(4));
      
     }
