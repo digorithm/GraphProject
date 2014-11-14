@@ -40,11 +40,9 @@ public class GraphProject {
         
         
         Graph graph = new Graph();
-        graph.createGraph("/home/rodrigo/NetBeansProjects/livraria2/GraphProject/src/graphproject/graph.txt");
+        graph.createGraph("/home/rodrigo/NetBeansProjects/livraria2/GraphProject/src/graphproject/graph_1.txt");
         
         graph.printGraph();
-        graph.setAdjacencyMatrix();
-        graph.printAdjacencyMatrix();
        
         
    

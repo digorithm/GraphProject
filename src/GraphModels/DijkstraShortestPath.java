@@ -128,7 +128,6 @@ public class DijkstraShortestPath {
     Vertex step = target;
     // check if a path exists
     if (predecessors.get(step) == null) {
-        System.out.println("entrou aqui");
       return null;
     }
     path.add(step);
