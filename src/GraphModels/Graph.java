@@ -362,12 +362,19 @@ public class Graph {
     this.printAdjacencyMatrix();
     System.out.println(" ");
     System.out.println("- - - - - - - - - - - - - - - - ");
-    System.out.println("Bellman-Ford Shortest Path ");
+    System.out.println("Bellman-Ford Shortest Path 0-0");
+    this.shortestPathBellmanFord(this.nodes.get(0), this.nodes.get(0));
+    System.out.println("Bellman-Ford Shortest Path 0-1");
+    this.shortestPathBellmanFord(this.nodes.get(0), this.nodes.get(1));
+    System.out.println("Bellman-Ford Shortest Path 0-2");
     this.shortestPathBellmanFord(this.nodes.get(0), this.nodes.get(2));
-    System.out.println("Bellman-Ford Shortest Path ");
+    System.out.println("Bellman-Ford Shortest Path 0-4");
     this.shortestPathBellmanFord(this.nodes.get(0), this.nodes.get(4));
-    System.out.println("Bellman-Ford Shortest Path ");
+    System.out.println("Bellman-Ford Shortest Path 0-5");
     this.shortestPathBellmanFord(this.nodes.get(0), this.nodes.get(5));
+    System.out.println("Bellman-Ford Shortest Path 3-4");
+    this.shortestPathBellmanFord(this.nodes.get(3), this.nodes.get(4));
+    System.out.println("Bellman-Ford Shortest Path ");
     System.out.println(" ");
     System.out.println("- - - - - - - - - - - - - - - - ");
     System.out.println("Dijkstra Shortest Path ");
@@ -466,8 +473,9 @@ public class Graph {
 
         for (Vertex nodeDest : this.getNodes()) {
           if (!nodeDest.visited) {
-            this.dijkstra.execute(node);
-            if (this.dijkstra.getPath(nodeDest) != null) {
+            bellmanFord = new BellmanFordShortestPath(this);
+            bellmanFord.execute(node);
+            if (this.bellmanFord.getPath(nodeDest) != null) {
               System.out.println(nodeDest.getName());
               nodeDest.visited = true;
               numVertexes++;

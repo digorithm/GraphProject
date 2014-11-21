@@ -6,7 +6,6 @@
 
 package GraphModels;
 
-import static java.lang.Integer.MAX_VALUE;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,6 +20,7 @@ import java.util.Map;
 public class BellmanFordShortestPath {
   private final List<Vertex> nodes;
   private final List<Edge> edges;
+  public static final int INFINITY=999;
 
   //list with the predecessors of the nodes
   private Map<Vertex, Vertex> predecessors;
@@ -44,9 +44,10 @@ public class BellmanFordShortestPath {
     for (Vertex v : nodes) {
       if (v == source) {
         distance.put(v, 0);
-      } else {
-        distance.put(v, MAX_VALUE);
         predecessors.put(source, null);
+      } else {
+        distance.put(v, INFINITY);
+        
       }
     }
 
@@ -55,7 +56,6 @@ public class BellmanFordShortestPath {
         for (Edge edge : edges) {
             if (distance.get(edge.getDestination()) > distance.get(edge.getSource()) + edge.getWeight()) {
                 distance.put(edge.getDestination(), distance.get(edge.getSource()) + edge.getWeight());
-                System.out.println("distance...:" + distance.get(edge.getSource()) + edge.getWeight());
                 predecessors.put(edge.getDestination(), edge.getSource());
             }
         }
@@ -84,7 +84,7 @@ public class BellmanFordShortestPath {
   private int getShortestDistance(Vertex destination) {
     Integer d = distance.get(destination);
     if (d == null) {
-      return Integer.MAX_VALUE;
+      return INFINITY;
     } else {
       return d;
     }
