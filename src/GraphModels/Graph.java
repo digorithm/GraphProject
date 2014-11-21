@@ -464,6 +464,8 @@ public class Graph {
     for (Vertex node : this.getNodes()) {
       listVertex.clear();
       if (!node.visited) {
+        bellmanFord = new BellmanFordShortestPath(this);
+        bellmanFord.execute(node);
         numComponents++;
         numVertexes = 1;
         System.out.println("-------------------");
@@ -473,8 +475,7 @@ public class Graph {
 
         for (Vertex nodeDest : this.getNodes()) {
           if (!nodeDest.visited) {
-            bellmanFord = new BellmanFordShortestPath(this);
-            bellmanFord.execute(node);
+            
             if (this.bellmanFord.getPath(nodeDest) != null) {
               System.out.println(nodeDest.getName());
               nodeDest.visited = true;
