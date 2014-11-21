@@ -40,7 +40,7 @@ public class GraphProject {
         
         
         Graph graph = new Graph();
-        graph.createGraph("/home/rodrigo/NetBeansProjects/livraria2/GraphProject/src/graphproject/graph_1.txt");
+        graph.createGraph("/Users/daniel/Documents/workspace_java/GraphProject/src/graphproject/graph_3_components.txt");
         
         graph.printGraph();
        

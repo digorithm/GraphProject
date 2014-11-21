@@ -55,6 +55,7 @@ public class BellmanFordShortestPath {
         for (Edge edge : edges) {
             if (distance.get(edge.getDestination()) > distance.get(edge.getSource()) + edge.getWeight()) {
                 distance.put(edge.getDestination(), distance.get(edge.getSource()) + edge.getWeight());
+                System.out.println("distance...:" + distance.get(edge.getSource()) + edge.getWeight());
                 predecessors.put(edge.getDestination(), edge.getSource());
             }
         }
