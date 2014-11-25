@@ -484,7 +484,7 @@ public class Graph {
           }
         }
         
-        System.out.println("Component degree: " + numVertexes);
+        System.out.println("Number of Nodes: " + numVertexes);
 
       }
     }
